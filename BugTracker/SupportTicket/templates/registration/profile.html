@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Profile</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in profile_form %}
+            <p>
+                {{field.label_tag}}
+                {{field}}
+
+                {% if field.help_text %}}
+                    <small style="color: grey;">{{field.help_text}}</small>
+                {% endif %}
+
+
+            </p>
+        {% endfor %}
+        {% for field in profile_form %}
+            {% for error in field.errors %}
+                    <p style="color: red;">{{error}}</p>
+            {% endfor %}
+        {% endfor %}
+
+        {% if login_form.non_field_errors %}
+            <div style="color:red">
+                <p>{{login_form.non_field_errors}}</p>
+            </div>
+        {% endif %}
+
+        {{ form }}
+
+        <button type="submit">Save Changes</button>
+    </form>
+    <p>No account? <a href="{% url 'register' %}">Register</a></p>
+{% endblock content %}

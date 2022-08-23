@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block head %}
+<link href="./login.css" rel="stylesheet">
+<style>
+    .cover-container {
+     max-width: 42em;
+    }
+    .form-signin {
+      max-width: 330px;
+      padding: 15px;
+    }
+
+    .form-signin .form-floating:focus-within {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+    </style>
+{% endblock head %}
+
+{% block content %}
+<div class="bg-image d-flex justify-content-center align-items-center"
+     style="
+     background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+     height: 100vh;">
+<main class="form-signin w-100 m-auto text-center">
+<form method="post">{% csrf_token %}
+    <img class="mb-4" src="#" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+    <div class="form-floating">
+      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+        {% for field in login_form %}
+            <p>
+            {% for error in field.errors %}
+                    <p style="color: red;">{{error}}</p>
+            {% endfor %}
+            </p>
+        {% endfor %}
+
+        {% if login_form.non_field_errors %}
+            <div style="color:red">
+                <p>{{login_form.non_field_errors}}</p>
+            </div>
+        {% endif %}
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+    <p>No account? <a href="{% url 'register' %}">Register</a></p>
+  </form>
+</main>
+    </div>
+{% endblock content %}

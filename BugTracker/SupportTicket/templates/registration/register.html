@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block head %}
+<link href="./login.css" rel="stylesheet">
+<style>
+    .cover-container {
+     max-width: 42em;
+    }
+    .form-signin {
+      max-width: 330px;
+      padding: 15px;
+    }
+
+    .form-signin .form-floating:focus-within {
+      z-index: 2;
+    }
+
+
+    </style>
+{% endblock head %}
+{% block content %}
+<div class="bg-image d-flex justify-content-center align-items-center"
+     style="
+     background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+     height: 100vh;">
+<main class="form-signin w-100 m-auto text-center">
+<form method="post">{% csrf_token %}
+    <img class="mb-4" src="#" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Register</h1>
+
+    <div class="form-floating">
+      <input type="text" name="first_name" class="form-control" placeholder="John">
+      <label>First Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" name="last_name" class="form-control" placeholder="Doe">
+      <label>Last Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="email" name="email" class="form-control" placeholder="name@example.com">
+      <label>Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="password1" class="form-control" placeholder="Password">
+      <label>Password</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="password2" class="form-control" placeholder="Password Confirmation">
+      <label>Password Confirmation</label>
+    </div>
+
+        {% for field in registration_form %}
+            <p>
+            {% for error in field.errors %}
+                    <p style="color: red;">{{error}}</p>
+            {% endfor %}
+            </p>
+        {% endfor %}
+
+        {% if registration_form.non_field_errors %}
+            <div style="color:red">
+                <p>{{registration_form.non_field_errors}}</p>
+            </div>
+        {% endif %}
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+  </form>
+</main>
+    </div>
+{% endblock content %}
